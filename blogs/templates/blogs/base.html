@@ -1,5 +1,15 @@
 <h1>DKMDebugin blog</h1>
-<p><a href="{% url 'blogs:home' %}">Home</a></p>
+<p>
+  <a href="{% url 'blogs:home' %}">Home</a> -
+  {% if user.is_authenticated %}
+    Hello, {{ user.username }} -
+    <a href="{% url 'users:logout' %}">Log out</a>
+  {% else %}
+    <a href="{% url 'users:login' %}">Login</a> -
+    <a href="{% url 'users:register' %}">Register</a>
+  {% endif %}
+</p>
+
 
 {% block content %}
 {% endblock %}

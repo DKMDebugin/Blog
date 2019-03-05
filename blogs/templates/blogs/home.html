@@ -6,6 +6,5 @@
     <h2><a href="{% url 'blogs:post' post.id %}">{{ post.title }}</a></h2>
     <p>{{ post.date_added|date:'m D, y h:i' }}</p>
     <p>{{ post.text }}</p>
-    <p><a href='{% url 'blogs:edit_post' post.id %}'>Edit post</a></p>
   {% endfor %}
 {% endblock %}
