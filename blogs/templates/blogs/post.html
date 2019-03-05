@@ -1,8 +1,12 @@
 {% extends 'blogs/base.html' %}
+{% load bootstrap3 %}
+
+{% block header %}
+  <h2><a>Post Title: {{ post.title }}</a></h2>
+{% endblock %}
 
 {% block content %}
-  <p>{{ post.title }}</p>
-  <p>{{ post.date_added }}</p>
-  <p>{{ post.text }}</p>
+  <small>{{ post.date_added }}</small>
+  <h3>{{ post.text }}</h3>
   <p><a href='{% url 'blogs:edit_post' post.id %}'>Edit post</a></p>
 {% endblock %}
