@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 
+from blogs.views import handler404, handler500
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,3 +25,6 @@ urlpatterns = [
     url(r'', include(('blogs.urls', 'blogs'), namespace='blogs')),
     path(r'users/', include(('users.urls', 'users'), namespace='users')),
 ]
+
+handler404 = handler404
+handler500 = handler500

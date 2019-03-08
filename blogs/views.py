@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -34,10 +34,8 @@ def new_post(request):
 @login_required
 def post(request, post_id):
     """single post page"""
-    post = BlogPost.objects.get(id=post_id)
-    # Make sure the post belongs to the current user.
-    # if post.owner != request.user:
-    #     raise Http404
+    # post = BlogPost.objects.get(id=post_id)
+    post = get_object_or_404(BlogPost, id=post_id)
 
     context = {'post': post}
 
@@ -46,10 +44,8 @@ def post(request, post_id):
 @login_required
 def edit_post(request, post_id):
     '''Edit a single post'''
-    post = BlogPost.objects.get(id=post_id)
-    # Make sure the post belongs to the current user.
-    if post.owner != request.user:
-        raise Http404
+    # post = BlogPost.objects.get(id=post_id)
+    post = get_object_or_404(BlogPost, id=post_id)
 
     if request.method != 'POST':
         # Initial request; prefill form with the current post
@@ -63,3 +59,13 @@ def edit_post(request, post_id):
 
     context = {'post': post, 'form': form}
     return render(request, 'blogs/edit_post.html', context)
+
+
+# Error pages
+def handler404(request, exception):
+    '''Error 404 page'''
+    return  render(request, 'blog/404.html', status=400)
+
+def handler500(request):
+    '''Error 500 page'''
+    return  render(request, 'blog/500.html', status=500)
